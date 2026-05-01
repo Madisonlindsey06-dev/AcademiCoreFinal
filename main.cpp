@@ -7,8 +7,40 @@ g++ main.cpp -o AcademiCore*/
 #include "HashTable.cpp"
 using namespace std;
 
+int getValidInt(string prompt) {
+    int value;
+    while (true) {
+        cout << prompt;
+        if (cin >> value) return value;
+
+        cout << "Invalid input. Enter a number.\n";
+        cin.clear();
+        cin.ignore(10000, '\n');
+    }
+}
+
+float getValidFloat(string prompt) {
+    float value;
+    while (true) {
+        cout << prompt;
+        if (cin >> value) return value;
+
+        cout << "Invalid input. Enter a valid number.\n";
+        cin.clear();
+        cin.ignore(10000, '\n');
+    }
+}
+
+string getValidString(string prompt) {
+    string value;
+    cout << prompt;
+    cin >> value;
+    return value;
+}
+
 void menu() {
-    cout << "\n1. Add\n2. View\n3. Update\n4. Delete\n5. Show All\n6. Save\n7. Load\n8. Exit\n";
+    cout << "\n====== AcademiCore ======\n";
+    cout << "1. Add\n2. View\n3. Update\n4. Delete\n5. Show All\n6. Save\n7. Load\n8. Exit\n";
 }
 
 int getChoice() {
@@ -31,38 +63,47 @@ int main() {
         menu();
         choice = getChoice();
 
-        if (choice == 1) {
-            int id, age; string name, major; float gpa;
+        if (choice == -1) continue;
 
-            cout << "ID: "; cin >> id;
-            cout << "Name: "; cin >> name;
-            cout << "Age: "; cin >> age;
-            cout << "Major: "; cin >> major;
-            cout << "GPA: "; cin >> gpa;
+        if (choice == 1) {
+            int id = getValidInt("ID: ");
+            string name = getValidString("Name: ");
+            int age = getValidInt("Age: ");
+            string major = getValidString("Major: ");
+            float gpa = getValidFloat("GPA: ");
 
             table.insert(Student(id, name, age, major, gpa));
         }
 
         else if (choice == 2) {
-            int id; cout << "ID: "; cin >> id;
+            int id = getValidInt("ID: ");
             table.search(id);
         }
 
         else if (choice == 3) {
-            int id; cout << "ID: "; cin >> id;
+            int id = getValidInt("ID: ");
             table.update(id);
         }
 
         else if (choice == 4) {
-            int id; cout << "ID: "; cin >> id;
+            int id = getValidInt("ID: ");
             table.remove(id);
         }
 
-        else if (choice == 5) table.displayAll();
-        else if (choice == 6) table.saveToFile("students.txt");
-        else if (choice == 7) table.loadFromFile("students.txt");
+        else if (choice == 5) {
+            table.displayAll();
+        }
+
+        else if (choice == 6) {
+            table.saveToFile("students.txt");
+        }
+
+        else if (choice == 7) {
+            table.loadFromFile("students.txt");
+        }
 
     } while (choice != 8);
 
     return 0;
+}
 }
