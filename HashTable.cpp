@@ -28,6 +28,11 @@ public:
     }
 
     void insert(Student s) {
+        if (findIndex(s.getID()) != -1) {
+            cout << "ID already exists.\n";
+            return;
+        }
+
         int index = hashFunction(s.getID());
 
         while (table[index].getID() != -1) {
@@ -47,14 +52,12 @@ public:
     void update(int id) {
         int index = findIndex(id);
         if (index == -1) { cout << "Not found.\n"; return; }
-
         table[index].update();
     }
 
     void remove(int id) {
         int index = findIndex(id);
         if (index == -1) { cout << "Not found.\n"; return; }
-
         table[index] = Student();
     }
 
@@ -69,6 +72,7 @@ public:
         for (int i = 0; i < SIZE; i++)
             if (table[i].getID() != -1)
                 file << table[i].toFileString() << endl;
+        cout << "Saved.\n";
     }
 
     void loadFromFile(string filename) {
@@ -77,5 +81,7 @@ public:
 
         while (getline(file, line))
             insert(Student::fromString(line));
+
+        cout << "Loaded.\n";
     }
 };
