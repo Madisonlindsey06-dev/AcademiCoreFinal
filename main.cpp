@@ -9,11 +9,15 @@ using namespace std;
 
 int getValidInt(string prompt) {
     int value;
+
     while (true) {
         cout << prompt;
-        if (cin >> value) return value;
 
-        cout << "Invalid input. Enter a number.\n";
+        if (cin >> value && value >= 0) {
+            return value;
+        }
+
+        cout << "Please enter a valid number.\n";
         cin.clear();
         cin.ignore(10000, '\n');
     }
@@ -21,11 +25,15 @@ int getValidInt(string prompt) {
 
 float getValidFloat(string prompt) {
     float value;
+
     while (true) {
         cout << prompt;
-        if (cin >> value) return value;
 
-        cout << "Invalid input. Enter a valid number.\n";
+        if (cin >> value && value >= 0 && value <= 4.0) {
+            return value;
+        }
+
+        cout << "Enter a GPA between 0.0 and 4.0.\n";
         cin.clear();
         cin.ignore(10000, '\n');
     }
@@ -39,34 +47,35 @@ string getValidString(string prompt) {
 }
 
 void menu() {
-    cout << "\n=================================\n";
-    cout << "         ACADEMICORE SYSTEM       \n";
-    cout << "=================================\n";
-    cout << " 1. Add Student Record\n";
-    cout << " 2. Search Student\n";
-    cout << " 3. Update Student Record\n";
-    cout << " 4. Delete Student Record\n";
-    cout << " 5. Display All Students\n";
-    cout << " 6. Save to File\n";
-    cout << " 7. Load from File\n";
-    cout << " 8. Exit\n";
-    cout << "---------------------------------\n";
+    cout << "\n============================\n";
+    cout << "      AcademiCore Menu\n";
+    cout << "============================\n";
+    cout << "1. Add Student\n";
+    cout << "2. Search Student\n";
+    cout << "3. Update Student\n";
+    cout << "4. Delete Student\n";
+    cout << "5. Show All Students\n";
+    cout << "6. Save\n";
+    cout << "7. Load\n";
+    cout << "8. Exit\n";
 }
 
 int getChoice() {
-    int c;
-    cout << "Enter choice: ";
+    int choice;
 
-    if (!(cin >> c)) {
+    cout << "\nChoose option: ";
+
+    if (!(cin >> choice)) {
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
         return -1;
     }
-    return c;
+
+    return choice;
 }
 
 int main() {
-    HashTable table;
+    HashTable db;
     int choice;
 
     do {
@@ -76,47 +85,46 @@ int main() {
         if (choice == -1) continue;
 
         if (choice == 1) {
-            cout << "\n--- Add Student ---\n";
+            cout << "\nAdding student...\n";
+
             int id = getValidInt("ID: ");
             string name = getValidString("Name: ");
             int age = getValidInt("Age: ");
             string major = getValidString("Major: ");
             float gpa = getValidFloat("GPA: ");
 
-            table.insert(Student(id, name, age, major, gpa));
+            db.insert(Student(id, name, age, major, gpa));
         }
 
         else if (choice == 2) {
-            cout << "\n--- Search Student ---\n";
-            int id = getValidInt("ID: ");
-            table.search(id);
+            int id = getValidInt("Enter ID: ");
+            db.search(id);
         }
 
         else if (choice == 3) {
-            cout << "\n--- Update Student ---\n";
-            int id = getValidInt("ID: ");
-            table.update(id);
+            int id = getValidInt("Enter ID: ");
+            db.update(id);
         }
 
         else if (choice == 4) {
-            cout << "\n--- Delete Student ---\n";
-            int id = getValidInt("ID: ");
-            table.remove(id);
+            int id = getValidInt("Enter ID: ");
+            db.remove(id);
         }
 
         else if (choice == 5) {
-            table.displayAll();
+            db.displayAll();
         }
 
         else if (choice == 6) {
-            table.saveToFile("students.txt");
+            db.saveToFile("students.txt");
         }
 
         else if (choice == 7) {
-            table.loadFromFile("students.txt");
+            db.loadFromFile("students.txt");
         }
 
     } while (choice != 8);
 
+    cout << "\nGoodbye.\n";
     return 0;
 }
