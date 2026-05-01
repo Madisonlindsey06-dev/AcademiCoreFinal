@@ -29,7 +29,7 @@ public:
 
     void insert(Student s) {
         if (findIndex(s.getID()) != -1) {
-            cout << "ID already exists.\n";
+            cout << "\nID already exists.\n";
             return;
         }
 
@@ -40,31 +40,44 @@ public:
         }
 
         table[index] = s;
-        cout << "Added.\n";
+        cout << "\nStudent added successfully.\n";
     }
 
     void search(int id) {
         int index = findIndex(id);
-        if (index == -1) cout << "Not found.\n";
+        if (index == -1) cout << "\nStudent not found.\n";
         else table[index].display();
     }
 
     void update(int id) {
         int index = findIndex(id);
-        if (index == -1) { cout << "Not found.\n"; return; }
+        if (index == -1) {
+            cout << "\nStudent not found.\n";
+            return;
+        }
+
         table[index].update();
+        cout << "\nRecord updated.\n";
     }
 
     void remove(int id) {
         int index = findIndex(id);
-        if (index == -1) { cout << "Not found.\n"; return; }
+        if (index == -1) {
+            cout << "\nStudent not found.\n";
+            return;
+        }
+
         table[index] = Student();
+        cout << "\nStudent deleted.\n";
     }
 
     void displayAll() {
-        for (int i = 0; i < SIZE; i++)
-            if (table[i].getID() != -1)
+        cout << "\n========== ALL STUDENTS ==========\n";
+        for (int i = 0; i < SIZE; i++) {
+            if (table[i].getID() != -1) {
                 table[i].display();
+            }
+        }
     }
 
     void saveToFile(string filename) {
@@ -72,7 +85,8 @@ public:
         for (int i = 0; i < SIZE; i++)
             if (table[i].getID() != -1)
                 file << table[i].toFileString() << endl;
-        cout << "Saved.\n";
+
+        cout << "\nData saved to file.\n";
     }
 
     void loadFromFile(string filename) {
@@ -82,6 +96,6 @@ public:
         while (getline(file, line))
             insert(Student::fromString(line));
 
-        cout << "Loaded.\n";
+        cout << "\nData loaded from file.\n";
     }
 };
