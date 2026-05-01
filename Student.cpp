@@ -15,27 +15,36 @@ private:
     float gpa;
 
 public:
-    Student() { id = -1; }
-
-    Student(int i, string n, int a, string m, float g) {
-        id = i; name = n; age = a; major = m; gpa = g;
+    Student() {
+        id = -1;
     }
 
-    int getID() { return id; }
+    Student(int i, string n, int a, string m, float g) {
+        id = i;
+        name = n;
+        age = a;
+        major = m;
+        gpa = g;
+    }
+
+    int getID() {
+        return id;
+    }
 
     void display() {
-        cout << "\n-------------------------\n";
-        cout << " Student Information\n";
-        cout << "-------------------------\n";
-        cout << "ID    : " << id << endl;
-        cout << "Name  : " << name << endl;
-        cout << "Age   : " << age << endl;
-        cout << "Major : " << major << endl;
-        cout << "GPA   : " << gpa << endl;
-        cout << "-------------------------\n";
+        cout << "\n----------------------\n";
+        cout << "Student Info\n";
+        cout << "----------------------\n";
+        cout << "ID: " << id << endl;
+        cout << "Name: " << name << endl;
+        cout << "Age: " << age << endl;
+        cout << "Major: " << major << endl;
+        cout << "GPA: " << gpa << endl;
+        cout << "----------------------\n";
     }
 
     void update() {
+        cout << "\nUpdating student...\n";
         name = getValidString("New name: ");
         age = getValidInt("New age: ");
         major = getValidString("New major: ");
