@@ -18,9 +18,12 @@ public:
         int start = index;
 
         while (table[index].getID() != -1) {
-            if (table[index].getID() == id) return index;
+            if (table[index].getID() == id) {
+                return index;
+            }
 
             index = (index + 1) % SIZE;
+
             if (index == start) break;
         }
 
@@ -29,7 +32,7 @@ public:
 
     void insert(Student s) {
         if (findIndex(s.getID()) != -1) {
-            cout << "\nID already exists.\n";
+            cout << "\nThat ID already exists.\n";
             return;
         }
 
@@ -40,39 +43,46 @@ public:
         }
 
         table[index] = s;
-        cout << "\nStudent added successfully.\n";
+        cout << "\nStudent added.\n";
     }
 
     void search(int id) {
         int index = findIndex(id);
-        if (index == -1) cout << "\nStudent not found.\n";
-        else table[index].display();
+
+        if (index == -1) {
+            cout << "\nCould not find student.\n";
+        } else {
+            table[index].display();
+        }
     }
 
     void update(int id) {
         int index = findIndex(id);
+
         if (index == -1) {
             cout << "\nStudent not found.\n";
             return;
         }
 
         table[index].update();
-        cout << "\nRecord updated.\n";
+        cout << "\nUpdated successfully.\n";
     }
 
     void remove(int id) {
         int index = findIndex(id);
+
         if (index == -1) {
             cout << "\nStudent not found.\n";
             return;
         }
 
         table[index] = Student();
-        cout << "\nStudent deleted.\n";
+        cout << "\nStudent removed.\n";
     }
 
     void displayAll() {
-        cout << "\n========== ALL STUDENTS ==========\n";
+        cout << "\n===== Student List =====\n";
+
         for (int i = 0; i < SIZE; i++) {
             if (table[i].getID() != -1) {
                 table[i].display();
@@ -82,20 +92,24 @@ public:
 
     void saveToFile(string filename) {
         ofstream file(filename);
-        for (int i = 0; i < SIZE; i++)
-            if (table[i].getID() != -1)
-                file << table[i].toFileString() << endl;
 
-        cout << "\nData saved to file.\n";
+        for (int i = 0; i < SIZE; i++) {
+            if (table[i].getID() != -1) {
+                file << table[i].toFileString() << endl;
+            }
+        }
+
+        cout << "\nSaved to file.\n";
     }
 
     void loadFromFile(string filename) {
         ifstream file(filename);
         string line;
 
-        while (getline(file, line))
+        while (getline(file, line)) {
             insert(Student::fromString(line));
+        }
 
-        cout << "\nData loaded from file.\n";
+        cout << "\nLoaded from file.\n";
     }
 };
