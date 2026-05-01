@@ -39,13 +39,23 @@ string getValidString(string prompt) {
 }
 
 void menu() {
-    cout << "\n====== AcademiCore ======\n";
-    cout << "1. Add\n2. View\n3. Update\n4. Delete\n5. Show All\n6. Save\n7. Load\n8. Exit\n";
+    cout << "\n=================================\n";
+    cout << "         ACADEMICORE SYSTEM       \n";
+    cout << "=================================\n";
+    cout << " 1. Add Student Record\n";
+    cout << " 2. Search Student\n";
+    cout << " 3. Update Student Record\n";
+    cout << " 4. Delete Student Record\n";
+    cout << " 5. Display All Students\n";
+    cout << " 6. Save to File\n";
+    cout << " 7. Load from File\n";
+    cout << " 8. Exit\n";
+    cout << "---------------------------------\n";
 }
 
 int getChoice() {
     int c;
-    cout << "Choice: ";
+    cout << "Enter choice: ";
 
     if (!(cin >> c)) {
         cin.clear();
@@ -66,6 +76,7 @@ int main() {
         if (choice == -1) continue;
 
         if (choice == 1) {
+            cout << "\n--- Add Student ---\n";
             int id = getValidInt("ID: ");
             string name = getValidString("Name: ");
             int age = getValidInt("Age: ");
@@ -76,16 +87,19 @@ int main() {
         }
 
         else if (choice == 2) {
+            cout << "\n--- Search Student ---\n";
             int id = getValidInt("ID: ");
             table.search(id);
         }
 
         else if (choice == 3) {
+            cout << "\n--- Update Student ---\n";
             int id = getValidInt("ID: ");
             table.update(id);
         }
 
         else if (choice == 4) {
+            cout << "\n--- Delete Student ---\n";
             int id = getValidInt("ID: ");
             table.remove(id);
         }
@@ -105,5 +119,4 @@ int main() {
     } while (choice != 8);
 
     return 0;
-}
 }
