@@ -1,7 +1,10 @@
-
 #include <iostream>
 #include <string>
 using namespace std;
+
+int getValidInt(string prompt);
+float getValidFloat(string prompt);
+string getValidString(string prompt);
 
 class Student {
 private:
@@ -29,10 +32,10 @@ public:
     }
 
     void update() {
-        cout << "New name: "; cin >> name;
-        cout << "New age: "; cin >> age;
-        cout << "New major: "; cin >> major;
-        cout << "New GPA: "; cin >> gpa;
+        name = getValidString("New name: ");
+        age = getValidInt("New age: ");
+        major = getValidString("New major: ");
+        gpa = getValidFloat("New GPA: ");
     }
 
     string toFileString() {
