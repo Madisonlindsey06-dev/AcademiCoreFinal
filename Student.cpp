@@ -24,11 +24,15 @@ public:
     int getID() { return id; }
 
     void display() {
-        cout << "\nID: " << id
-             << "\nName: " << name
-             << "\nAge: " << age
-             << "\nMajor: " << major
-             << "\nGPA: " << gpa << endl;
+        cout << "\n-------------------------\n";
+        cout << " Student Information\n";
+        cout << "-------------------------\n";
+        cout << "ID    : " << id << endl;
+        cout << "Name  : " << name << endl;
+        cout << "Age   : " << age << endl;
+        cout << "Major : " << major << endl;
+        cout << "GPA   : " << gpa << endl;
+        cout << "-------------------------\n";
     }
 
     void update() {
